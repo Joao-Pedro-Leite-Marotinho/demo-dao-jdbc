@@ -18,7 +18,7 @@ public interface DepartmentDao {
 	
 	//finds a Department by its id
 	//it returns null if there's no row with the specified id
-	Department finById(Integer id);
+	Department findById(Integer id);
 	
 	//returns all Departments
 	List<Department> findAll();
