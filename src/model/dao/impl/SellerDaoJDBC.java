@@ -61,17 +61,9 @@ public class SellerDaoJDBC implements SellerDao{
 			//this if statement tests if the consult is not null(true)
 			if(rs.next()) {
 				//instantiating object Department
-				Department dep = new Department();
-				dep.setId(rs.getInt("DepartmentId"));
-				dep.setName(rs.getString("DepName"));
+				Department dep = instantiateDepartment(rs);
 				//instantiating object Seller
-				Seller obj = new Seller();
-				obj.setId(rs.getInt("Id"));
-				obj.setName("Name");
-				obj.setEmail(rs.getString("Email"));
-				obj.setBaseSalary(rs.getDouble("BaseSalary"));
-				obj.setBirthDate(rs.getDate("BirthDate"));
-				obj.setDepartment(dep);
+				Seller obj = instantiateSeller(rs, dep);
 				
 				//returning seller
 				return obj;
@@ -86,6 +78,24 @@ public class SellerDaoJDBC implements SellerDao{
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+	
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		Seller obj = new Seller();
+		obj.setId(rs.getInt("Id"));
+		obj.setName("Name");
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep);
+		return obj;
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+		return dep;
 	}
 
 	@Override
